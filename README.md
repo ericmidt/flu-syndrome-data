@@ -78,3 +78,8 @@ check the saved data, for example:
 ```sql
 SELECT * FROM Flu_syndrome_data
 ```
+
+## Get in touch:
+
+- [LinkedIn](https://www.linkedin.com/in/ericmidt/)
+- [GitHub](https://github.com/ericmidt)
