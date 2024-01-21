@@ -9,7 +9,7 @@ class NotificationsProcessor:
         # API credentials
         self.url = "https://elasticsearch-saps.saude.gov.br/desc-esus-notifica-estado-pr/_search"
         self.username = "user-public-notificacoes"
-        self.password = "YOUR_PASSWORD"
+        self.password = "Za4qNXdyQNSa9YaA" # standard password for the API
         self.db_params = db_params
         self.session = requests.Session()
         self.session.auth = (self.username, self.password)
