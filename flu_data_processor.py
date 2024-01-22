@@ -20,7 +20,7 @@ class NotificationsProcessor:
         cursor = conn.cursor()
 
         # Create table
-        cursor.execute("""CREATE TABLE IF NOT EXISTS Flu_syndrome_data(
+        cursor.execute("""CREATE TABLE IF NOT EXISTS FLU_SYNDROME_DATA(
                                 id VARCHAR(255),
                                 timestamp TIMESTAMP,
                                 sexo VARCHAR(255),
