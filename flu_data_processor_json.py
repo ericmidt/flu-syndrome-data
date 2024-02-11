@@ -5,6 +5,8 @@ import json
 import boto3
 import os
 from dotenv import load_dotenv
+from botocore.exceptions import ClientError
+import logging
 
 class NotificationsProcessor:
 
@@ -76,6 +78,23 @@ class NotificationsProcessor:
 
         print("Data insertion complete.")
 
+    def upload_file_to_s3_bucket(self):
+        # Load environment variables from .env file
+        load_dotenv()
+        
+        # Access the environment variables
+        aws_access_key_id = os.getenv("aws_access_key")
+        aws_secret_access_key = os.getenv("aws_secret_access_key")
+        aws_flu_data_bucket = os.getenv("aws_flu_data_bucket")
+
+        s3 = boto3.client("s3", aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key)
+
+        try:
+            response = s3.upload_file("flu_data.json", "flu-data-brazil", "flu_data_brazil.json")
+        except ClientError as e:
+            logging.error(f"Erro ao realizar o upload: {str(e)}")
+
+
 if __name__ == "__main__":
 
     processor = NotificationsProcessor()
@@ -85,14 +104,5 @@ if __name__ == "__main__":
 
     processor.fetch_and_processs_data(start_date, end_date)
 
-    # Load environment variables from .env file
-    load_dotenv()
-    
-    # Access the environment variables
-    aws_access_key_id = os.getenv("aws_access_key")
-    aws_secret_access_key = os.getenv("aws_secret_access_key")
-    aws_flu_data_bucket = os.getenv("aws_flu_data_bucket")
+    processor.upload_file_to_s3_bucket()
 
-    s3 = boto3.client('s3')
-    s3.meta.client.upload_file()
-    
