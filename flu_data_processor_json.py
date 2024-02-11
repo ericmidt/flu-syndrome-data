@@ -2,6 +2,9 @@ import requests
 from datetime import datetime, timedelta
 import calendar
 import json
+import boto3
+import os
+from dotenv import load_dotenv
 
 class NotificationsProcessor:
 
@@ -81,3 +84,14 @@ if __name__ == "__main__":
     end_date = datetime.now()
 
     processor.fetch_and_processs_data(start_date, end_date)
+
+    # Load environment variables from .env file
+    load_dotenv()
+    
+    # Access the environment variables
+    aws_access_key_id = os.getenv("aws_access_key")
+    aws_secret_access_key = os.getenv("aws_secret_access_key")
+    aws_flu_data_bucket = os.getenv("aws_flu_data_bucket")
+
+    s3 = boto3.client('s3')
+    s3.meta.client.upload_file()
